@@ -2,6 +2,8 @@
 
 A Django REST API for booking movie tickets, managing shows, and users.
 
+This project was built using Python, Django, and Django REST Framework to create a complete Movie Ticket Booking System API with JWT authentication and Swagger documentation.
+
 ## Tech Stack
 
 - Python 3.9+
@@ -56,7 +58,11 @@ python manage.py runserver
 ```
 
 The API will be available at http://127.0.0.1:8000/api/
-Swagger documentation is available at http://127.0.0.1:8000/swagger/
+
+**Documentation:**
+* Comprehensive API documentation is available through Swagger UI at: 
+  * http://127.0.0.1:8000/swagger/
+* This interactive documentation allows you to explore and test all endpoints directly from your browser.
 
 ## API Endpoints
 
@@ -88,7 +94,38 @@ After logging in, include the JWT token in your API requests:
 Authorization: Bearer <access_token>
 ```
 
-You can also use the Swagger UI "Authorize" button and input `Bearer <access_token>` to authenticate.
+### Step-by-Step JWT Authentication Guide:
+
+1. First, obtain a token by making a POST request to `/api/login/` with your credentials:
+   ```json
+   {
+     "username": "your_username",
+     "password": "your_password"
+   }
+   ```
+
+2. The response will contain an access token and a refresh token:
+   ```json
+   {
+     "access": "eyJ0eXAiOiJKV1QiLCJhbGciOi...",
+     "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOi..."
+   }
+   ```
+
+3. For all authenticated API requests, include the access token in the Authorization header:
+   ```
+   Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi...
+   ```
+
+4. When the access token expires (after 60 minutes), use the refresh token to get a new one:
+   ```
+   POST /api/token/refresh/
+   {
+     "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOi..."
+   }
+   ```
+
+You can also use the Swagger UI "Authorize" button and input `Bearer <access_token>` to authenticate all requests made through the Swagger interface.
 
 ## Business Rules
 
@@ -101,6 +138,27 @@ You can also use the Swagger UI "Authorize" button and input `Bearer <access_tok
 
 - Uses database transactions with row-level locking via `select_for_update()` to prevent race conditions
 - Catches integrity errors for safety against edge case race conditions
+
+## Project Structure
+
+The project follows a standard Django structure:
+
+```
+moviebooking/           # Main project directory
+├── moviebooking/       # Project settings
+│   ├── settings.py     # Django settings
+│   ├── urls.py         # Root URL configuration
+│   └── ...
+├── bookings/           # Main application
+│   ├── models.py       # Database models
+│   ├── serializers.py  # REST API serializers
+│   ├── views.py        # API endpoints
+│   ├── urls.py         # API URL routes
+│   ├── admin.py        # Admin interface config
+│   └── tests.py        # Automated tests
+├── manage.py           # Django management script
+└── requirements.txt    # Project dependencies
+```
 
 ## Running Tests
 
@@ -257,3 +315,18 @@ python manage.py test
 ```
 
 If all tests pass, it confirms that the key features are working as expected.
+
+## GitHub Repository
+
+This project is available on GitHub at: https://github.com/Akcthecoder200/Movie_Ticket_Booking
+
+The repository contains:
+- Complete Django project code
+- requirements.txt with all dependencies
+- This comprehensive README.md with setup instructions and usage guidelines
+
+To clone this repository:
+```bash
+git clone https://github.com/Akcthecoder200/Movie_Ticket_Booking.git
+cd Movie_Ticket_Booking
+```
