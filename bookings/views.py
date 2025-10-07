@@ -1,6 +1,8 @@
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 from django.db import transaction, IntegrityError
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -96,3 +98,16 @@ class MyBookingsListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Booking.objects.filter(user=self.request.user).order_by('-created_at')
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    """
+    API root view that provides links to all main endpoints
+    """
+    return Response({
+        'signup': reverse('signup', request=request, format=format),
+        'login': reverse('token_obtain_pair', request=request, format=format),
+        'token_refresh': reverse('token_refresh', request=request, format=format),
+        'movies': reverse('movies_list', request=request, format=format),
+        'my_bookings': reverse('my_bookings', request=request, format=format),
+    })
