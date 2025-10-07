@@ -60,9 +60,10 @@ python manage.py runserver
 The API will be available at http://127.0.0.1:8000/api/
 
 **Documentation:**
-* Comprehensive API documentation is available through Swagger UI at: 
-  * http://127.0.0.1:8000/swagger/
-* This interactive documentation allows you to explore and test all endpoints directly from your browser.
+
+- Comprehensive API documentation is available through Swagger UI at:
+  - http://127.0.0.1:8000/swagger/
+- This interactive documentation allows you to explore and test all endpoints directly from your browser.
 
 ## API Endpoints
 
@@ -97,6 +98,7 @@ Authorization: Bearer <access_token>
 ### Step-by-Step JWT Authentication Guide:
 
 1. First, obtain a token by making a POST request to `/api/login/` with your credentials:
+
    ```json
    {
      "username": "your_username",
@@ -105,6 +107,7 @@ Authorization: Bearer <access_token>
    ```
 
 2. The response will contain an access token and a refresh token:
+
    ```json
    {
      "access": "eyJ0eXAiOiJKV1QiLCJhbGciOi...",
@@ -113,6 +116,7 @@ Authorization: Bearer <access_token>
    ```
 
 3. For all authenticated API requests, include the access token in the Authorization header:
+
    ```
    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi...
    ```
@@ -321,11 +325,13 @@ If all tests pass, it confirms that the key features are working as expected.
 This project is available on GitHub at: https://github.com/Akcthecoder200/Movie_Ticket_Booking
 
 The repository contains:
+
 - Complete Django project code
 - requirements.txt with all dependencies
 - This comprehensive README.md with setup instructions and usage guidelines
 
 To clone this repository:
+
 ```bash
 git clone https://github.com/Akcthecoder200/Movie_Ticket_Booking.git
 cd Movie_Ticket_Booking
